@@ -19,11 +19,11 @@ COPY . /app
 RUN chmod +x /app/run_daily.sh
 
 # Setup cron (runs daily at 2am)
-RUN echo "0 2 * * * root /app/run_daily.sh >> /var/log/ollama_cron.log 2>&1" > /etc/cron.d/ollama_daily && \
+RUN echo "0 * * * * root /app/run_daily.sh >> /var/log/ollama_cron.log 2>&1" > /etc/cron.d/ollama_daily && \
     chmod 0644 /etc/cron.d/ollama_daily && \
     crontab /etc/cron.d/ollama_daily
 
-RUN mkdir -p /var/log
+RUN mkdir -p /var/log && touch /var/log/ollama_cron.log
 
 # Default environment variables (override with docker-compose)
 ENV BASE_HF_MODEL=meta-llama/Llama-2-7b-chat-hf

@@ -7,9 +7,7 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         python3.11 python3.11-venv python3.11-distutils python3-pip \
-        build-essential git ca-certificates cron curl && \
-    ln -s /usr/bin/python3.11 /usr/bin/python3 && \
-    rm -rf /var/lib/apt/lists/*
+        build-essential git ca-certificates cron curl
 
 # Copy dependencies and install
 COPY requirements.txt /app/

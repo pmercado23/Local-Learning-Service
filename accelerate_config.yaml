@@ -1,0 +1,17 @@
+# Example accelerate config for multi-GPU training.
+# Adjust `mixed_precision`, `deepspeed_config`, and `num_processes` to match your setup.
+compute_environment: LOCAL_MACHINE
+distributed_type: MULTI_GPU
+fp16: true
+deepspeed_config:
+  # Simple Deepspeed config - adapt for your environment
+  zero_optimization:
+    stage: 2
+  fp16:
+    enabled: true
+machine_rank: 0
+main_process_ip: null
+main_process_port: null
+num_machines: 1
+num_processes: 2
+use_cpu: false

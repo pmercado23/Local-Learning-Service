@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  ollama-train:
+    build: .
+    container_name: ollama-train
+    runtime: nvidia
+    environment:
+      - BASE_HF_MODEL=meta-llama/Llama-2-7b-chat-hf
+      - OLLAMA_MODEL_NAME=my-custom-model
+    volumes:
+      - ./data:/app/data:ro
+      - ./output:/app/output
+      # If you run Ollama on the host and want container to access its models directory, mount it:
+      # - /home/you/.ollama:/root/.ollama
+    restart: unless-stopped

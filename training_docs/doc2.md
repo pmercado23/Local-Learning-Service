@@ -1,0 +1,1 @@
+# Document 2\nThis is another sample training file.

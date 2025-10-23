@@ -10,12 +10,12 @@ def create_modelfile(base_model, docs_dir, output_modelfile):
                 docs_content += f"\n\n# From {file_path.name}\n{f.read()}\n"
 
     modelfile_content = f"""
-FROM {base_model}
+        FROM {base_model}
 
-SYSTEM """You are a helpful assistant trained with the following materials:
-{docs_content}
-Use this context to provide accurate, document-based responses."""
-"""
+        SYSTEM """You are a helpful assistant trained with the following materials:
+        {docs_content}
+        Use this context to provide accurate, document-based responses."""
+        """
 
     with open(output_modelfile, "w", encoding="utf-8") as f:
         f.write(modelfile_content)

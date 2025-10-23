@@ -7,7 +7,7 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         python3.11 python3.11-venv python3.11-distutils python3-pip \
-        build-essential git ca-certificates cron curl
+        build-essential git ca-certificates cron curl ollama
 
 # Copy dependencies and install
 COPY requirements.txt /app/

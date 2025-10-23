@@ -7,6 +7,8 @@ services:
     environment:
       - BASE_HF_MODEL=meta-llama/Llama-2-7b-chat-hf
       - OLLAMA_MODEL_NAME=my-custom-model
+      - HF_TOKEN=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
+
     volumes:
       - ./data:/app/data:ro
       - ./output:/app/output

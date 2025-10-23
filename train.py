@@ -3,10 +3,38 @@
 import os
 import argparse
 from pathlib import Path
+import subprocess
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments, DataCollatorForLanguageModeling
 from datasets import load_dataset, Dataset
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+
+def huggingface_login(token: str = None):
+    """
+    Logs into Hugging Face to enable model access (e.g., private models or gated LLaMA).
+    """
+    try:
+        from huggingface_hub import login
+    except ImportError:
+        print("[!] 'huggingface_hub' not installed. Installing now...")
+        subprocess.run(["pip", "install", "huggingface_hub"], check=True)
+        from huggingface_hub import login
+
+    if not token:
+        token = os.getenv("HF_TOKEN")
+        if not token:
+            print("[!] No Hugging Face token provided.")
+            print("    Set it via environment variable or pass --hf-token.")
+            return False
+
+    try:
+        login(token=token)
+        print("[+] Logged in to Hugging Face successfully.")
+        return True
+    except Exception as e:
+        print(f"[!] Hugging Face login failed: {e}")
+        return False
+
 
 def load_texts_from_folder(folder):
     texts = []
@@ -25,6 +53,19 @@ def main():
     parser.add_argument("--learning_rate", type=float, default=1e-4)
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1)
     args = parser.parse_args()
+
+     # Login to Hugging Face if token provided
+    if args.hf_token or os.getenv("HF_TOKEN"):
+        huggingface_login(args.hf_token)
+    else:
+        print("[*] Skipping Hugging Face login (no token provided).")
+
+    # Check if Ollama is available
+    try:
+        subprocess.run(["ollama", "--version"], check=True, capture_output=True)
+    except FileNotFoundError:
+        print("[!] Ollama not found. Please install it from https://ollama.ai/download or use Docker.")
+        return
 
     os.makedirs(args.output_dir, exist_ok=True)
     adapter_dir = Path(args.output_dir) / "adapter"

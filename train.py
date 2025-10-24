@@ -52,6 +52,7 @@ def main():
     parser.add_argument("--num_train_epochs", type=float, default=1.0)
     parser.add_argument("--learning_rate", type=float, default=1e-4)
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1)
+    parser.add_argument("--hf-token", type=str, help="Optional Hugging Face token for model access")
     args = parser.parse_args()
 
      # Login to Hugging Face if token provided

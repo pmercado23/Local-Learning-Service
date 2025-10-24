@@ -136,7 +136,6 @@ def main():
 
     # save adapter weights in safetensors-compatible format
     print("Saving adapter to:", adapter_dir)
-    trainer.save_model(str(adapter_dir))
     model.save_pretrained(str(adapter_dir), safe_serialization=True)
 
     print("Done. Adapter saved to", adapter_dir)

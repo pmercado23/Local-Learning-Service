@@ -5,8 +5,8 @@ OUTPUT_DIR="$ROOT_DIR/output"
 ADAPTER_DIR="$OUTPUT_DIR/adapter"
 MODELFILENAME="Modelfile"
 MODELFILENAME_PATH="$ROOT_DIR/$MODELFILENAME"
-MODELNAME=${OLLAMA_MODEL_NAME:-"my-custom-model"}
-BASE_MODEL=${BASE_HF_MODEL:-"meta-llama/Llama-2-7b-chat-hf"}  # override via env
+MODELNAME=${OLLAMA_MODEL_NAME:-"qwen-test-update-01"}
+BASE_MODEL=${BASE_HF_MODEL:-"Qwen/Qwen2.5-0.5B"}  # override via env
 
 echo "Starting daily run: $(date)"
 

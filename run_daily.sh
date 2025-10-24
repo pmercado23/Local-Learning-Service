@@ -7,6 +7,7 @@ MODELFILENAME="Modelfile"
 MODELFILENAME_PATH="$ROOT_DIR/$MODELFILENAME"
 MODELNAME=${OLLAMA_MODEL_NAME:-"qwen-test-update-01"}
 BASE_MODEL=${BASE_HF_MODEL:-"Qwen/Qwen2.5-0.5B"}  # override via env
+OLLMAA_BASE_MODEL=${OLLMAA_BASE_MODEL:-"Qwen/Qwen2.5-0.5B"} 
 HF_TOKEN=${HF_TOKEN}
 
 echo "Starting daily run: $(date)"
@@ -29,7 +30,7 @@ if [ ! -d "$ADAPTER_DIR" ]; then
 fi
 
 # 2) Render Modelfile
-cat /app/Modelfile.template       | sed "s|{{BASE_MODEL}}|$BASE_MODEL|g"       | sed "s|{{ADAPTER_PATH}}|$ADAPTER_DIR|g"       > "$MODELFILENAME_PATH"
+cat /app/Modelfile.template       | sed "s|{{OLLMAA_BASE_MODEL}}|$OLLMAA_BASE_MODEL|g"       | sed "s|{{ADAPTER_PATH}}|$ADAPTER_DIR|g"       > "$MODELFILENAME_PATH"
 
 echo "Wrote Modelfile:"
 cat "$MODELFILENAME_PATH"

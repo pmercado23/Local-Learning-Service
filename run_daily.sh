@@ -44,6 +44,7 @@ if command -v ollama >/dev/null 2>&1; then
     echo "Model $MODELNAME exists; removing then re-creating"
     ollama rm "$MODELNAME" || true
   fi
+  echo "Creating model: $MODELNAME from $MODELFILENAME_PATH"
   ollama create "$MODELNAME" -f "$MODELFILENAME_PATH"
   echo "Created Ollama model: $MODELNAME"
 else

@@ -1,5 +1,5 @@
-# Modelfile.template
-# Replace FROM and ADAPTER with your base model and the local adapter path.
-
-FROM {{BASE_MODEL}}   # e.g. meta-llama/Llama-2-7b-chat-hf or local GGUF path
-ADAPTER {{ADAPTER_PATH}}
+FROM {BASE_MODEL}
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER num_ctx 2048
+ADAPTER {ADAPTER_PATH}

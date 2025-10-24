@@ -45,7 +45,7 @@ if command -v ollama >/dev/null 2>&1; then
     ollama rm "$MODELNAME" || true
   fi
   echo "Creating model: $MODELNAME from $MODELFILENAME_PATH"
-  ollama create "$MODELNAME" -f "$MODELFILENAME_PATH"
+  ollama create "$MODELNAME" -f Modelfile
   echo "Created Ollama model: $MODELNAME"
 else
   echo "ollama CLI not found in PATH. Please install Ollama on the host or add it to the container."

@@ -7,17 +7,18 @@ MODELFILENAME="Modelfile"
 MODELFILENAME_PATH="$ROOT_DIR/$MODELFILENAME"
 MODELNAME=${OLLAMA_MODEL_NAME:-"qwen-test-update-01"}
 BASE_MODEL=${BASE_HF_MODEL:-"Qwen/Qwen2.5-0.5B"}  # override via env
+HF_TOKEN=${HF_TOKEN}
 
 echo "Starting daily run: $(date)"
 
 # 1) Run training (use accelerate if available)
 if command -v accelerate >/dev/null 2>&1; then
   echo "Running training with accelerate launch (if configured)."
-  accelerate launch /app/train.py --model "$BASE_MODEL" --data_dir /app/data --output_dir "$OUTPUT_DIR" --num_train_epochs 0.5 || {
+  accelerate launch /app/train.py --model "$BASE_MODEL" --data_dir /app/data --output_dir "$OUTPUT_DIR" --num_train_epochs 3 || {
     echo "Training failed (nonfatal). Continuing to attempt to import adapter if present."
   }
 else
-  python3 /app/train.py --model "$BASE_MODEL" --data_dir /app/data --output_dir "$OUTPUT_DIR" --num_train_epochs 0.5 || {
+  python3 /app/train.py --model "$BASE_MODEL" --data_dir /app/data --output_dir "$OUTPUT_DIR" --num_train_epochs 3|| {
     echo "Training failed (nonfatal). Continuing to attempt to import adapter if present."
   }
 fi
@@ -34,6 +35,9 @@ echo "Wrote Modelfile:"
 cat "$MODELFILENAME_PATH"
 
 # 3) Create/update Ollama model
+echo "stating ollama" 
+ollama serve & 
+
 if command -v ollama >/dev/null 2>&1; then
   echo "Ollama CLI found. Creating/updating model: $MODELNAME"
   if ollama ls | grep -q "$MODELNAME"; then

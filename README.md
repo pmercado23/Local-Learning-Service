@@ -22,7 +22,7 @@ This project fine-tunes a Hugging Face model using PEFT/LoRA, exports a safetens
    ```
    Example:
    ```bash
-   accelerate launch train.py --model meta-llama/Llama-2-7b-chat-hf --data_dir ./data --output_dir ./output --num_train_epochs 1
+   accelerate launch train.py --model Qwen/Qwen2.5-0.5B --data_dir ./data --output_dir ./output --num_train_epochs 1
    ```
 
 ## Running in Docker

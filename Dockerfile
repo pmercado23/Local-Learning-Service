@@ -25,9 +25,13 @@ RUN echo "0 * * * * root /app/run_daily.sh >> /var/log/ollama_cron.log 2>&1" > /
 
 RUN mkdir -p /var/log && touch /var/log/ollama_cron.log
 
+
+# Install ollama on local
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
 # Default environment variables (override with docker-compose)
-ENV BASE_HF_MODEL=meta-llama/Llama-2-7b-chat-hf
-ENV OLLAMA_MODEL_NAME=my-custom-model
+ENV BASE_HF_MODEL=Qwen/Qwen2.5-0.5B
+ENV OLLAMA_MODEL_NAME=qwen-test-update-01
 
 # Start cron and tail logs
 CMD service cron start && tail -F /var/log/ollama_cron.log

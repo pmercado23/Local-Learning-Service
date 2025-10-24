@@ -94,7 +94,7 @@ def main():
     data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
     # load model
-    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.float16, device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(args.model, dtype=torch.float16, device_map="auto")
 
     # prepare for k-bit training if needed (kept as safe default)
     model = prepare_model_for_kbit_training(model)

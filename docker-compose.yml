@@ -10,6 +10,6 @@ services:
     volumes:
       - ./data:/app/data:ro
       - ./output:/app/output
-      # If you run Ollama on the host and want container to access its models directory, mount it:
-      - /home/you/.ollama:/root/.ollama
+      - .ollama:/root/.ollama
+  
     restart: unless-stopped

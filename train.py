@@ -140,5 +140,12 @@ def main():
 
     print("Done. Adapter saved to", adapter_dir)
 
+    print("Pushing to huggingface")
+    hf_push_repo = os.getenv("HF_PUSH_REPO")
+
+    model.push_to_hub(hf_push_repo)
+    print("Done. Model pushed to: ", hf_push_repo)
+
+
 if __name__ == "__main__":
     main()

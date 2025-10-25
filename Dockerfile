@@ -28,7 +28,6 @@ RUN mkdir -p /var/log && touch /var/log/ollama_cron.log
 
 # Install ollama on local
 RUN curl -fsSL https://ollama.com/install.sh | sh
-RUN ollama serve &
 
 # Default environment variables (override with docker-compose)
 ENV BASE_HF_MODEL=Qwen/Qwen2.5-0.5B

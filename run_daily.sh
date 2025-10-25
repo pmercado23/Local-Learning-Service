@@ -8,7 +8,6 @@ MODELFILENAME_PATH="$ROOT_DIR/$MODELFILENAME"
 MODELNAME=${OLLAMA_MODEL_NAME:-"qwen-test-update-01"}
 BASE_MODEL=${BASE_HF_MODEL:-"Qwen/Qwen2.5-0.5B"}  # override via env
 OLLMAA_BASE_MODEL=${OLLMAA_BASE_MODEL:-"Qwen/Qwen2.5-0.5B"} 
-HF_TOKEN=${HF_TOKEN}
 
 echo "Starting daily run: $(date)"
 
@@ -36,21 +35,22 @@ echo "Wrote Modelfile:"
 cat "$MODELFILENAME_PATH"
 
 # 3) Create/update Ollama model
-echo "stating ollama" 
-ollama serve & 
+#
+#echo "stating ollama" 
+#ollama serve & 
 
-if command -v ollama >/dev/null 2>&1; then
-  echo "Ollama CLI found. Creating/updating model: $MODELNAME"
-  if ollama ls | grep -q "$MODELNAME"; then
-    echo "Model $MODELNAME exists; removing then re-creating"
-    ollama rm "$MODELNAME" || true
-  fi
-  echo "Creating model: $MODELNAME from $MODELFILENAME_PATH"
-  ollama create "$MODELNAME" -f Modelfile
-  echo "Created Ollama model: $MODELNAME"
-else
-  echo "ollama CLI not found in PATH. Please install Ollama on the host or add it to the container."
-  exit 2
-fi
+#if command -v ollama >/dev/null 2>&1; then
+#  echo "Ollama CLI found. Creating/updating model: $MODELNAME"
+#  if ollama ls | grep -q "$MODELNAME"; then
+#    echo "Model $MODELNAME exists; removing then re-creating"
+#    ollama rm "$MODELNAME" || true
+#  fi
+#  echo "Creating model: $MODELNAME from $MODELFILENAME_PATH"
+#  ollama create "$MODELNAME" -f Modelfile
+#  echo "Created Ollama model: $MODELNAME"
+#else
+#  echo "ollama CLI not found in PATH. Please install Ollama on the host or add it to the container."
+#  exit 2
+#fi
 
 echo "Daily run complete: $(date)"

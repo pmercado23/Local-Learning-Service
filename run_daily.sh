@@ -9,7 +9,9 @@ MODELNAME=${OLLAMA_MODEL_NAME:-"qwen-test-update-01"}
 BASE_MODEL=${BASE_HF_MODEL:-"Qwen/Qwen2.5-0.5B"}  # override via env
 OLLMAA_BASE_MODEL=${OLLMAA_BASE_MODEL:-"Qwen/Qwen2.5-0.5B"} 
 
+
 echo "Starting daily run: $(date)"
+source /app/.env
 
 # 1) Run training (use accelerate if available)
 if command -v accelerate >/dev/null 2>&1; then
